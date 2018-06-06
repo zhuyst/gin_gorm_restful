@@ -8,11 +8,11 @@ import (
 )
 
 var(
-	getUser result.GetResultFunc    // 获取用户Handler
-	listUsers result.GetResultFunc  // 获取用户列表Handler
-	addUser result.GetResultFunc    // 新增用户Handler
-	updateUser result.GetResultFunc // 更新用户Handler
-	deleteUser result.GetResultFunc // 删除用户Handler
+	getUser result.GetResultFunc     // 获取用户Handler
+	listUsers result.GetResultFunc   // 获取用户列表Handler
+	addUser result.GetResultFunc     // 新增用户Handler
+	updateUser result.GetResultFunc  // 更新用户Handler
+	deleteUser result.GetResultFunc  // 删除用户Handler
 )
 
 func init(){
