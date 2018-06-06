@@ -11,6 +11,7 @@ func init()  {
 	router = gin.Default()
 }
 
+// 启动Gin
 func Run()  {
 	user_controller.SetRouterGroup(router)
 	router.Run()
