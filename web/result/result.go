@@ -5,12 +5,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// 通用API返回模板类
 type Result struct {
-	Code int
-	Message string
-	Data interface{}
+	Code int          // 状态码
+	Message string    // 结果信息
+	Data interface{}  // 返回内容实体
 }
 
+// 将Result对象转为Gin的结果对象
 func (result *Result) ToGinH() (h gin.H) {
 	h = gin.H{}
 
@@ -21,12 +23,13 @@ func (result *Result) ToGinH() (h gin.H) {
 	return h
 }
 
-func GetResult(Data interface{},err error) (result Result) {
+// 获取Result对象
+func GetResult(data interface{},err error) (result Result) {
 	if err == nil{
 		result = Result{
 			Code : http.StatusOK,
 			Message : "OK",
-			Data : Data,
+			Data : data,
 		}
 	}else{
 		result = Result{

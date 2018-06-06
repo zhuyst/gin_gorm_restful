@@ -8,16 +8,26 @@ import (
 	"../../model/user-dao"
 )
 
+// 获取用户Handler
 var getUser func(c *gin.Context)
+
+// 获取用户列表Handler
 var listUsers func(c *gin.Context)
+
+// 新增用户Handler
 var addUser func(c *gin.Context)
+
+// 更新用户Handler
 var updateUser func(c *gin.Context)
+
+// 删除用户Handler
 var deleteUser func(c *gin.Context)
 
 func init(){
 	InitRouterHandler()
 }
 
+// 设置用户路由组
 func SetRouterGroup(router *gin.Engine){
 	userGroup := router.Group("/users")
 	userGroup.GET("/:id",getUser).
@@ -27,6 +37,7 @@ func SetRouterGroup(router *gin.Engine){
 		DELETE("/:id",deleteUser)
 }
 
+// 初始化路由Handler
 func InitRouterHandler()  {
 	getUser = func(c *gin.Context) {
 		id,_ := util.Str2Uint(c.Param("id"))
@@ -43,8 +54,7 @@ func InitRouterHandler()  {
 	}
 
 	addUser = func(c *gin.Context)  {
-		user := user_dao.User{}
-		err := c.ShouldBindJSON(&user)
+		user,err := GetUser(c)
 
 		var resultEntity result.Result
 		if err != nil {
@@ -58,13 +68,13 @@ func InitRouterHandler()  {
 	}
 
 	updateUser = func(c *gin.Context) {
-		user := user_dao.User{}
-		err := c.ShouldBindJSON(&user)
+		user,err := GetUser(c)
 
 		var resultEntity result.Result
 		if err != nil {
 			resultEntity = result.GetResult(nil, err)
 		}else{
+			// 从URL中获取用户ID
 			id,_ := util.Str2Uint(c.Param("id"))
 			user.ID = id
 
@@ -76,10 +86,21 @@ func InitRouterHandler()  {
 	}
 
 	deleteUser = func(c *gin.Context){
+
+		// 从URL中获取用户ID
 		id,_ := util.Str2Uint(c.Param("id"))
 		err := user_dao.DeleteUserByID(id)
 
 		resultEntity := result.GetResult(nil,err)
 		c.JSON(http.StatusOK,resultEntity.ToGinH())
 	}
+}
+
+func GetUser(c *gin.Context) (user user_dao.User,err error) {
+	user = user_dao.User{}
+
+	// 将JSON转为User对象
+	err = c.ShouldBindJSON(&user)
+
+	return user,err
 }
