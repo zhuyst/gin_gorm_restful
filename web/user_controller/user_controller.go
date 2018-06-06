@@ -8,20 +8,13 @@ import (
 	"../../model/user-dao"
 )
 
-// 获取用户Handler
-var getUser func(c *gin.Context)
-
-// 获取用户列表Handler
-var listUsers func(c *gin.Context)
-
-// 新增用户Handler
-var addUser func(c *gin.Context)
-
-// 更新用户Handler
-var updateUser func(c *gin.Context)
-
-// 删除用户Handler
-var deleteUser func(c *gin.Context)
+var(
+	getUser func(c *gin.Context)     // 获取用户Handler
+	listUsers func(c *gin.Context)   // 获取用户列表Handler
+	addUser func(c *gin.Context)     // 新增用户Handler
+	updateUser func(c *gin.Context)  // 更新用户Handler
+	deleteUser func(c *gin.Context)  // 删除用户Handler
+)
 
 func init(){
 	InitRouterHandler()

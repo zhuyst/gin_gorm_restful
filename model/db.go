@@ -38,6 +38,6 @@ func GetDB() *gorm.DB {
 
 // 获取GORM的连接URL
 func GetDbUrl() string {
-	return fmt.Sprint(Username,":",Password,"@tcp(",Hostname,
-		":",Port,")/",Database,"?parseTime=true")
+	return fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?parseTime=true",
+		Username,Password,Hostname,Port,Database)
 }
