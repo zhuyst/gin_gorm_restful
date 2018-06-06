@@ -25,18 +25,16 @@ func (result *Result) ToGinH() (h gin.H) {
 
 // 获取Result对象
 func GetResult(data interface{},err error) (result Result) {
-	if err == nil{
-		result = Result{
-			Code : http.StatusOK,
-			Message : "OK",
-			Data : data,
-		}
-	}else{
-		result = Result{
+	if err != nil{
+		return Result{
 			Code : http.StatusInternalServerError,
 			Message : err.Error(),
 		}
 	}
 
-	return result
+	return Result{
+		Code : http.StatusOK,
+		Message : "OK",
+		Data : data,
+	}
 }
