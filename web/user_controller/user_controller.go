@@ -54,7 +54,7 @@ func InitRouterHandler()  {
 	}
 
 	addUser = func(c *gin.Context)  {
-		user,err := GetUser(c)
+		user,err := GetUserByContext(c)
 
 		var resultEntity result.Result
 		if err != nil {
@@ -68,7 +68,7 @@ func InitRouterHandler()  {
 	}
 
 	updateUser = func(c *gin.Context) {
-		user,err := GetUser(c)
+		user,err := GetUserByContext(c)
 
 		var resultEntity result.Result
 		if err != nil {
@@ -96,7 +96,7 @@ func InitRouterHandler()  {
 	}
 }
 
-func GetUser(c *gin.Context) (user user_dao.User,err error) {
+func GetUserByContext(c *gin.Context) (user user_dao.User,err error) {
 	user = user_dao.User{}
 
 	// 将JSON转为User对象
