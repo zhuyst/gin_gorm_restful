@@ -1,0 +1,2 @@
+# gin_gorm_restful
+使用Gin与GORM构建的RESTfulAPI，连接MySQL
