@@ -6,12 +6,13 @@ import (
 )
 
 // 获取结果对象方法
-type GetResultFunc func(c *gin.Context) (resultEntity Result)
+type GetDataFunc func(c *gin.Context) (data interface{},err error)
 
-// GetResultFunc -> Gin.HandlerFunc
-func (getResult GetResultFunc) ToGinHandler() gin.HandlerFunc {
+// GetDataFunc -> Gin.HandlerFunc
+func (getData GetDataFunc) ToGinHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		resultEntity := getResult(c)
+		data,err := getData(c)
+		resultEntity := BuildResult(data,err)
 		c.JSON(http.StatusOK,resultEntity.ToGinH())
 	}
 }

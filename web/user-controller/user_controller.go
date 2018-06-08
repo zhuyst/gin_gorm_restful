@@ -8,11 +8,11 @@ import (
 )
 
 var(
-	getUser result.GetResultFunc     // 获取用户Handler
-	listUsers result.GetResultFunc   // 获取用户列表Handler
-	addUser result.GetResultFunc     // 新增用户Handler
-	updateUser result.GetResultFunc  // 更新用户Handler
-	deleteUser result.GetResultFunc  // 删除用户Handler
+	getUser result.GetDataFunc    // 获取用户Handler
+	listUsers result.GetDataFunc  // 获取用户列表Handler
+	addUser result.GetDataFunc    // 新增用户Handler
+	updateUser result.GetDataFunc // 更新用户Handler
+	deleteUser result.GetDataFunc // 删除用户Handler
 )
 
 func init(){
@@ -31,61 +31,61 @@ func SetRouterGroup(router *gin.Engine){
 
 // 初始化路由Handler
 func InitRouterHandler()  {
-	getUser = func(c *gin.Context) (resultEntity result.Result) {
+	getUser = func(c *gin.Context) (data interface{},err error) {
 		// 从URL中获取用户ID
 		id,err := util.Str2Uint(c.Param("id"))
 		if err != nil{
-			return result.GetResult(nil,err)
+			return nil,err
 		}
 
 		user,err := user_dao.GetUser(id)
-		return result.GetResult(user,err)
+		return user,err
 	}
 
-	listUsers = func(c *gin.Context) (resultEntity result.Result) {
+	listUsers = func(c *gin.Context) (data interface{},err error) {
 		users,err := user_dao.ListUsers()
-		return result.GetResult(users,err)
+		return users,err
 	}
 
-	addUser = func(c *gin.Context) (resultEntity result.Result) {
+	addUser = func(c *gin.Context) (data interface{},err error) {
 		user,err := GetUserByContext(c)
 
 		if err != nil {
-			return result.GetResult(nil, err)
+			return nil, err
 		}
 
 		err = user_dao.AddUser(&user)
-		return result.GetResult(user,err)
+		return user,err
 	}
 
-	updateUser = func(c *gin.Context) (resultEntity result.Result) {
+	updateUser = func(c *gin.Context) (data interface{},err error) {
 		user,err := GetUserByContext(c)
 
 		if err != nil {
-			return result.GetResult(nil, err)
+			return nil, err
 		}
 
 		// 从URL中获取用户ID
 		id,err := util.Str2Uint(c.Param("id"))
 		if err != nil {
-			return result.GetResult(nil,err)
+			return nil,err
 		}
 
 		user.ID = id
 
 		err = user_dao.UpdateUser(&user)
-		return result.GetResult(user,err)
+		return user,err
 	}
 
-	deleteUser = func(c *gin.Context) (resultEntity result.Result) {
+	deleteUser = func(c *gin.Context) (data interface{},err error) {
 		// 从URL中获取用户ID
 		id,err := util.Str2Uint(c.Param("id"))
 		if err != nil{
-			return result.GetResult(nil,err)
+			return nil,err
 		}
 
 		err = user_dao.DeleteUserByID(id)
-		return result.GetResult(nil,err)
+		return nil,err
 	}
 }
 
