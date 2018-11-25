@@ -1,8 +1,8 @@
 package result
 
 import (
-	"net/http"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 // 通用API返回模板类

@@ -2,7 +2,7 @@ package web
 
 import (
 	"github.com/gin-gonic/gin"
-	"./user-controller"
+	"github.com/zhuyst/gin_gorm_restful/web/user-controller"
 )
 
 var router *gin.Engine

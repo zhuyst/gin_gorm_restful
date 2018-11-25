@@ -1,6 +1,6 @@
 package main
 
-import "./web"
+import "github.com/zhuyst/gin_gorm_restful/web"
 
 func main()  {
 	web.Run()

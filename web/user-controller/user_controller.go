@@ -2,9 +2,9 @@ package user_controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"../result"
-	"../../util"
-	"../../model/user-dao"
+	"github.com/zhuyst/gin_gorm_restful/model/user-dao"
+	"github.com/zhuyst/gin_gorm_restful/util"
+	"github.com/zhuyst/gin_gorm_restful/web/result"
 )
 
 var(

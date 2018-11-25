@@ -1,8 +1,8 @@
 package user_dao
 
-import(
-	".."
+import (
 	"github.com/jinzhu/gorm"
+	"github.com/zhuyst/gin_gorm_restful/model"
 )
 
 type User struct {
